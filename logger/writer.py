@@ -7,7 +7,7 @@ def create_log_config(*, log_level: str) -> dict[str, Any]:
         "disable_existing_loggers": False,
         "formatters": {
             "json": {
-                "()": "logging.logger.formatter.JSONLogFormatter",
+                "()": "logger.formatter.JSONLogFormatter",
             },
         },
         "handlers": {
