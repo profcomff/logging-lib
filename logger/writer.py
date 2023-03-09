@@ -1,7 +1,7 @@
 from typing import Any
 
 
-def create_log_config(project_name: str, *, log_level: str) -> dict[str, Any]:
+def create_log_config(*, log_level: str) -> dict[str, Any]:
     return {
         "version": 1,
         "disable_existing_loggers": False,
@@ -13,12 +13,12 @@ def create_log_config(project_name: str, *, log_level: str) -> dict[str, Any]:
         "handlers": {
             "json": {
                 "formatter": "json",
-                "class": "asynclog.AsyncLogDispatcher",
-                "func": "logging.logger.writer.write_log",
+                'class': 'logging.StreamHandler',
+                'stream': 'ext://sys.stdout'
             },
         },
         "loggers": {
-            project_name: {
+            "": {
                 "handlers": ["json"],
                 "level": log_level.upper(),
                 "propagate": False,
@@ -37,5 +37,3 @@ def create_log_config(project_name: str, *, log_level: str) -> dict[str, Any]:
     }
 
 
-def write_log(message):
-    print(message)

@@ -30,7 +30,6 @@ class RequestJsonLogSchema(BaseModel):
     level_name: str
     request_uri: str
     request_referer: str
-    request_protocol: str
     request_method: str
     request_path: str
     request_host: str
