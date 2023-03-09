@@ -52,7 +52,9 @@ class LoggingMiddleware(BaseHTTPMiddleware):
             response_headers = {}
         else:
             response_headers = dict(response.headers.items())
-            response_body = response.body
+            response_body = b''
+            async for chunk in response.body_iterator:
+                response_body += chunk
             response = Response(
                 content=response_body,
                 status_code=response.status_code,
