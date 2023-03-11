@@ -11,7 +11,7 @@ setup(
     long_description_content_type="text/markdown",
     url="https://github.com/profcomff/logging/tree/init",
     packages=find_packages(),
-    install_requires=["pydantic", "starlette", "setuptools"],
+    install_requires=["setuptools"],
     classifiers=[
         "Programming Language :: Python :: 3.11",
     ],
