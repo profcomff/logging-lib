@@ -9,7 +9,7 @@ setup(
     author="Semyon Grigoriev",
     long_description=readme,
     long_description_content_type="text/markdown",
-    url="https://github.com/profcomff/logging/tree/init",
+    url="https://github.com/profcomff/logging-lib",
     packages=find_packages(),
     install_requires=["setuptools"],
     classifiers=[
