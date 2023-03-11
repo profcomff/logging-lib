@@ -52,10 +52,10 @@ class JSONLogFormatter(logging.Formatter):
             json_log_fields.props = record.props
 
         if record.exc_info:
-            json_log_fields.exceptions = traceback.format_exception(*record.exc_info)
+            json_log_fields["exceptions"] = traceback.format_exception(*record.exc_info)
 
         elif record.exc_text:
-            json_log_fields.exceptions = record.exc_text
+            json_log_fields["exceptions"] = record.exc_text
 
         if hasattr(record, "request_json_fields"):
             json_log_fields.update(record.request_json_fields)
