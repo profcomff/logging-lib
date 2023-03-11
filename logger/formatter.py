@@ -47,13 +47,17 @@ class JSONLogFormatter(logging.Formatter):
         json_log_fields["duration_ms"] = duration_ms
         json_log_fields["func"] = record.funcName
         json_log_fields["file"] = record.filename
+        empty_record = logging.LogRecord(
+            str(), int(), str(), int(), object(), exc_info=None, args=(object,)
+        )
+        keys = set(dir(record)) - set(dir(empty_record))
+        json_log_fields.update({key: getattr(record, key) for key in keys})
 
         if hasattr(record, "props"):
             json_log_fields.props = record.props
 
         if record.exc_info:
             json_log_fields["exceptions"] = traceback.format_exception(*record.exc_info)
-
         elif record.exc_text:
             json_log_fields["exceptions"] = record.exc_text
 
