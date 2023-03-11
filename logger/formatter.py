@@ -3,8 +3,6 @@ import json
 import logging
 import traceback
 
-from logger.models import BaseJsonLogSchema
-
 
 class JSONLogFormatter(logging.Formatter):
     """
@@ -39,15 +37,16 @@ class JSONLogFormatter(logging.Formatter):
         message = record.getMessage()
         duration_ms = record.duration if hasattr(record, "duration") else record.msecs
         # Инициализация тела журнала
-        json_log_fields = BaseJsonLogSchema(
-            thread=record.process,
-            timestamp=now,
-            level=record.levelno,
-            level_name=record.levelname,
-            message=message,
-            source=record.name,
-            duration_ms=duration_ms,
-        )
+        json_log_fields = dict()
+        json_log_fields["thread"] = record.process
+        json_log_fields["timestamp"] = now
+        json_log_fields["level"] = record.levelno
+        json_log_fields["level_name"] = record.levelname
+        json_log_fields["message"] = message
+        json_log_fields["source"] = record.name
+        json_log_fields["duration_ms"] = duration_ms
+        json_log_fields["func"] = record.funcName
+        json_log_fields["file"] = record.filename
 
         if hasattr(record, "props"):
             json_log_fields.props = record.props
@@ -57,13 +56,8 @@ class JSONLogFormatter(logging.Formatter):
 
         elif record.exc_text:
             json_log_fields.exceptions = record.exc_text
-        # Преобразование Pydantic объекта в словарь
-        json_log_object = json_log_fields.dict(
-            exclude_unset=True,
-            by_alias=True,
-        )
-        # Соединение дополнительных полей логирования
-        if hasattr(record, "request_json_fields"):
-            json_log_object.update(record.request_json_fields)
 
-        return json_log_object
+        if hasattr(record, "request_json_fields"):
+            json_log_fields.update(record.request_json_fields)
+
+        return json_log_fields
