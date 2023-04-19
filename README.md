@@ -1,6 +1,9 @@
 #  logging-lib
 Библиотека для логирования сервисов Твой ФФ!
 
+[![pypi](https://img.shields.io/pypi/dm/logging-profcomff?label=PIP%20INSTALLS&style=for-the-badge)](https://pypi.org/project/logging-profcomff)
+[![tg](https://img.shields.io/badge/telegram-Viribus%20unitis-brightgreen?style=for-the-badge&logo=telegram)](https://t.me/+eIMtCymYDepmN2Ey)
+
 ## Как подключить
 1. В requirements.txt добавьте logging-profcomff
 2. Скопируйте из /gunicorn_logging_examples обе конфигурации
