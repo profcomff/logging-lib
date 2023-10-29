@@ -5,7 +5,7 @@ with open("README.md", "r") as readme_file:
 
 setup(
     name="logging_profcomff",
-    version="2023.03.11",
+    version="2023.10.29",
     author="Semyon Grigoriev",
     long_description=readme,
     long_description_content_type="text/markdown",

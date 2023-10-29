@@ -17,7 +17,12 @@ class JSONLogFormatter(logging.Formatter):
         :return: строка журнала в JSON формате
         """
         log_object: dict = self._format_log_object(record)
-        return json.dumps(log_object, ensure_ascii=False)
+        return json.dumps(
+            log_object,
+            ensure_ascii=False,
+            skipkeys=True,
+            default=lambda o: f"<{type(o)=} not serializable>",
+        )
 
     @staticmethod
     def _format_log_object(record: logging.LogRecord) -> dict:
