@@ -17,9 +17,12 @@ class JSONLogFormatter(logging.Formatter):
         :return: строка журнала в JSON формате
         """
         log_object: dict = self._format_log_object(record)
-        return json.dumps(log_object, ensure_ascii=False,
-                          skipkeys=True,
-                          default=lambda o: f'<{type(o)=} not serializable>')
+        return json.dumps(
+            log_object,
+            ensure_ascii=False,
+            skipkeys=True,
+            default=lambda o: f"<{type(o)=} not serializable>",
+        )
 
     @staticmethod
     def _format_log_object(record: logging.LogRecord) -> dict:
@@ -49,7 +52,6 @@ class JSONLogFormatter(logging.Formatter):
         json_log_fields["duration_ms"] = duration_ms
         json_log_fields["func"] = record.funcName
         json_log_fields["file"] = record.filename
-
         empty_record = logging.LogRecord(
             str(), int(), str(), int(), object(), exc_info=None, args=(object,)
         )
